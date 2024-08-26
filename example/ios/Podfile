@@ -6,4 +6,6 @@ require "#{ws_dir}/node_modules/react-native-test-app/test_app.rb"
 
 workspace 'MusicKitAuthExample.xcworkspace'
 
+platform :ios, '15.0'
+
 use_test_app!

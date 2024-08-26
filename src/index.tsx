@@ -17,6 +17,23 @@ const MusicKitAuth = NativeModules.MusicKitAuth
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return MusicKitAuth.multiply(a, b);
+export enum AuthStatus {
+  Authorized = 'authorized',
+  Denied = 'denied',
+  NotDetermined = 'notDetermined',
+  Restricted = 'restricted',
+  Unknown = 'unknown',
+}
+
+export interface MusicTokens {
+  userToken: string;
+  developerToken: string;
+}
+
+export function requestAuthorization(): Promise<AuthStatus> {
+  return MusicKitAuth.requestAuthorization();
+}
+
+export function getUserToken(): Promise<MusicTokens> {
+  return MusicKitAuth.getUserToken();
 }

@@ -20,15 +20,10 @@
   "files": [
     "src",
     "lib",
-    "android",
     "ios",
     "cpp",
     "*.podspec",
     "!ios/build",
-    "!android/build",
-    "!android/gradle",
-    "!android/gradlew",
-    "!android/gradlew.bat",
     "!android/local.properties",
     "!**/__tests__",
     "!**/__fixtures__",
@@ -40,14 +35,13 @@
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
+    "clean": "del-cli example/ios/build lib",
     "prepare": "bob build",
     "release": "release-it"
   },
   "keywords": [
     "react-native",
-    "ios",
-    "android"
+    "ios"
   ],
   "repository": {
     "type": "git",
@@ -75,7 +69,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "jest": "^29.7.0",
-    "prettier": "^3.0.3",
+    "prettier": "^3.3.3",
     "react": "18.3.1",
     "react-native": "0.75.2",
     "react-native-builder-bob": "^0.30.0",
