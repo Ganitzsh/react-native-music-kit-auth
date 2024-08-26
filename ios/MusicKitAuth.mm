@@ -2,11 +2,9 @@
 
 @interface RCT_EXTERN_MODULE(MusicKitAuth, NSObject)
 
-RCT_EXTERN_METHOD(requestAuthorization:
-                 withResolver:(RCTPromiseResolveBlock)resolve
+RCT_EXTERN_METHOD(requestAuthorization:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
-RCT_EXTERN_METHOD(getUserToken:
-                 withResolver:(RCTPromiseResolveBlock)resolve
+RCT_EXTERN_METHOD(getUserToken:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 
 + (BOOL)requiresMainQueueSetup

@@ -4,8 +4,8 @@ import MusicKit
 @objc(MusicKitAuth)
 class MusicKitAuth: NSObject {
 
-  @objc(requestAuthorization:withResolver:withRejecter:)
-  func requestAuthorization(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
+  @objc(requestAuthorization:withRejecter:)
+    func requestAuthorization(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
     Task {
       let status = await MusicAuthorization.request()
 
@@ -24,8 +24,8 @@ class MusicKitAuth: NSObject {
     }
   }
 
-  @objc(getUserToken:withResolver:withRejecter:)
-  func getUserToken(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
+  @objc(getUserToken:withRejecter:)
+  func getUserToken(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
     Task {
       do {
         let defaultTokenProvider = DefaultMusicTokenProvider.init()
