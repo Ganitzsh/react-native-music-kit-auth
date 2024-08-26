@@ -1,6 +1,6 @@
 {
   "name": "react-native-music-kit-auth",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Simple module to retrieve the users' Music Kit API tokens",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
