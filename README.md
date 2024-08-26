@@ -12,11 +12,20 @@ npm install react-native-music-kit-auth
 
 
 ```js
-import { multiply } from 'react-native-music-kit-auth';
+import { type AuthStatus, requestAuthorization, getUserTokens } from 'react-native-music-kit-auth';
 
 // ...
 
-const result = await multiply(3, 7);
+const authorizationStatus = await requestAuthorization();
+console.log(authorizationStatus);
+
+if (authorizationStatus === AuthStatus.Authorized) {
+  const userTokens = await getUserTokens();
+
+  console.log(userTokens.developerToken);
+  console.log(userTokens.musicUserToken);
+}
+
 ```
 
 
