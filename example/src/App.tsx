@@ -12,9 +12,7 @@ export default function App() {
       <Button
         onPress={async () => {
           try {
-            const token = await MKA.getUserToken(
-              'eyJhbGciOiJFUzI1NiIsImtpZCI6IjVVNjZQNzZZN04ifQ.eyJpc3MiOiIyRk5ZNjgyV0JaIiwiZXhwIjoxNzI0NzU0NTk4LjcxNSwiaWF0IjoxNzI0NzUwOTk4LjcxNX0.m0-BXXZdU8MWmrAPEVqsC0kdVg_akTMuTkxCbYxhSc-Tin2raSCaBLeOnh3urd4xtZZqs19GIVi9nwruXv0Ldw'
-            );
+            const token = await MKA.getUserToken();
 
             console.log(token);
           } catch (e) {
