@@ -54,6 +54,32 @@ class MusicKitAuth: NSObject {
     }
   }
 
+  @objc(getUserTokenWithDeveloperToken:withResolver:withRejecter:)
+  func getUserTokenWithDeveloperToken(
+    developerToken: NSString,
+    resolve: @escaping RCTPromiseResolveBlock,
+    reject: @escaping RCTPromiseRejectBlock
+  ) {
+    let dt = String(developerToken)
+
+    Task {
+      do {
+        let musicUserTokenProvider = MusicUserTokenProvider()
+        let userToken = try await musicUserTokenProvider.userToken(
+          for: dt, options: MusicTokenRequestOptions())
+
+        let tokens: [String: String] = [
+          "developerToken": dt,
+          "userToken": userToken,
+        ]
+
+        resolve(tokens)
+      } catch {
+        reject("AUTH_ERROR", "Error retrieving user token: \(error.localizedDescription)", error)
+      }
+    }
+  }
+
   @objc(getUserTokenFromStoreKit:withRejecter:)
   func getUserTokenFromStoreKit(
     resolve: @escaping RCTPromiseResolveBlock,

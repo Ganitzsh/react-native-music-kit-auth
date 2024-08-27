@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
-import {
-  requestAuthorization,
-  getUserToken,
-  getUserTokenFromStoreKit,
-} from 'react-native-music-kit-auth';
+import * as MKA from 'react-native-music-kit-auth';
 
 export default function App() {
   const [tokens] = useState<string | undefined>();
@@ -16,15 +12,11 @@ export default function App() {
       <Button
         onPress={async () => {
           try {
-            await requestAuthorization();
-            const tokensFromOgThing = await getUserToken();
-            const tokenFromStoreKit = await getUserTokenFromStoreKit();
-
-            console.log(tokensFromOgThing, tokenFromStoreKit);
-            console.log(
-              'Same =',
-              tokenFromStoreKit === tokensFromOgThing.userToken
+            const token = await MKA.getUserToken(
+              'eyJhbGciOiJFUzI1NiIsImtpZCI6IjVVNjZQNzZZN04ifQ.eyJpc3MiOiIyRk5ZNjgyV0JaIiwiZXhwIjoxNzI0NzU0NTk4LjcxNSwiaWF0IjoxNzI0NzUwOTk4LjcxNX0.m0-BXXZdU8MWmrAPEVqsC0kdVg_akTMuTkxCbYxhSc-Tin2raSCaBLeOnh3urd4xtZZqs19GIVi9nwruXv0Ldw'
             );
+
+            console.log(token);
           } catch (e) {
             console.error(e);
           }

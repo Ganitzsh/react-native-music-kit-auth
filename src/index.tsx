@@ -34,8 +34,12 @@ export function requestAuthorization(): Promise<AuthStatus> {
   return MusicKitAuth.requestAuthorization();
 }
 
-export function getUserToken(): Promise<MusicTokens> {
-  return MusicKitAuth.getUserToken();
+export function getUserToken(developerToken?: string): Promise<MusicTokens> {
+  if (developerToken === undefined) {
+    return MusicKitAuth.getUserToken();
+  }
+
+  return MusicKitAuth.getUserTokenWithDeveloperToken(developerToken);
 }
 
 export function getUserTokenFromStoreKit(

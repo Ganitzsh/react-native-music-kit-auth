@@ -6,9 +6,13 @@ RCT_EXTERN_METHOD(requestAuthorization:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(getUserToken:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(getUserTokenWithDeveloperToken:(NSString)developerToken
+                 withResolver:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(getUserTokenFromStoreKit:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
-RCT_EXTERN_METHOD(getUserTokenFromStoreKitFromDevToken:(NSString)developerToken withResolver:(RCTPromiseResolveBlock)resolve
+RCT_EXTERN_METHOD(getUserTokenFromStoreKitFromDevToken:(NSString)developerToken
+                 withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 
 
