@@ -37,3 +37,13 @@ export function requestAuthorization(): Promise<AuthStatus> {
 export function getUserToken(): Promise<MusicTokens> {
   return MusicKitAuth.getUserToken();
 }
+
+export function getUserTokenFromStoreKit(
+  developerToken?: string
+): Promise<string> {
+  if (developerToken === undefined) {
+    return MusicKitAuth.getUserTokenFromStoreKit();
+  }
+
+  return MusicKitAuth.getUserTokenFromStoreKitFromDevToken(developerToken);
+}

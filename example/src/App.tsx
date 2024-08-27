@@ -3,27 +3,35 @@ import { StyleSheet, View, Text, Button } from 'react-native';
 import {
   requestAuthorization,
   getUserToken,
-  type MusicTokens,
+  getUserTokenFromStoreKit,
 } from 'react-native-music-kit-auth';
 
 export default function App() {
-  const [tokens, setTokens] = useState<MusicTokens | undefined>();
-  const [error, setError] = useState<string | undefined>();
+  const [tokens] = useState<string | undefined>();
+  const [error] = useState<string | undefined>();
 
   return (
     <View style={styles.container}>
       {error && <Text>{error}</Text>}
       <Button
-        onPress={() =>
-          requestAuthorization()
-            .then(() => getUserToken().then(setTokens))
-            .catch((e) => setError(e.message))
-        }
+        onPress={async () => {
+          try {
+            await requestAuthorization();
+            const tokensFromOgThing = await getUserToken();
+            const tokenFromStoreKit = await getUserTokenFromStoreKit();
+
+            console.log(tokensFromOgThing, tokenFromStoreKit);
+            console.log(
+              'Same =',
+              tokenFromStoreKit === tokensFromOgThing.userToken
+            );
+          } catch (e) {
+            console.error(e);
+          }
+        }}
         title="Get Tokens"
       />
-      <Text>
-        Result: {tokens?.developerToken}, {tokens?.userToken}
-      </Text>
+      <Text>Result: "{tokens}"</Text>
     </View>
   );
 }
@@ -39,4 +47,5 @@ const styles = StyleSheet.create({
     height: 60,
     marginVertical: 20,
   },
+  error: {},
 });

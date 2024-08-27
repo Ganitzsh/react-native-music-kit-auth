@@ -1,11 +1,15 @@
 import MusicKit
+import StoreKit
 
 @available(iOS 15.0, *)
 @objc(MusicKitAuth)
 class MusicKitAuth: NSObject {
 
   @objc(requestAuthorization:withRejecter:)
-    func requestAuthorization(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+  func requestAuthorization(
+    resolve: @escaping RCTPromiseResolveBlock,
+    reject: @escaping RCTPromiseRejectBlock
+  ) {
     Task {
       let status = await MusicAuthorization.request()
 
@@ -25,7 +29,10 @@ class MusicKitAuth: NSObject {
   }
 
   @objc(getUserToken:withRejecter:)
-  func getUserToken(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+  func getUserToken(
+    resolve: @escaping RCTPromiseResolveBlock,
+    reject: @escaping RCTPromiseRejectBlock
+  ) {
     Task {
       do {
         let defaultTokenProvider = DefaultMusicTokenProvider.init()
@@ -47,4 +54,41 @@ class MusicKitAuth: NSObject {
     }
   }
 
+  @objc(getUserTokenFromStoreKit:withRejecter:)
+  func getUserTokenFromStoreKit(
+    resolve: @escaping RCTPromiseResolveBlock,
+    reject: @escaping RCTPromiseRejectBlock
+  ) {
+    Task {
+      do {
+        let defaultTokenProvider = DefaultMusicTokenProvider.init()
+        let developerToken = try await defaultTokenProvider.developerToken(
+          options: MusicTokenRequestOptions())
+        let userToken = try await SKCloudServiceController().requestUserToken(
+          forDeveloperToken: developerToken)
+
+        resolve(userToken)
+      } catch {
+        reject("AUTH_ERROR", "Error retrieving user token: \(error.localizedDescription)", error)
+      }
+    }
+  }
+
+  @objc(getUserTokenFromStoreKitFromDevToken:withResolver:withRejecter:)
+  func getUserTokenFromStoreKitFromDevToken(
+    developerToken: NSString,
+    resolve: @escaping RCTPromiseResolveBlock,
+    reject: @escaping RCTPromiseRejectBlock
+  ) {
+    SKCloudServiceController().requestUserToken(
+      forDeveloperToken: String(developerToken)
+    ) { (token, error) in
+      if let error = error {
+        reject("ERROR", "Error retrieving user token: \(error.localizedDescription)", error)
+        return
+      }
+
+      resolve(token)
+    }
+  }
 }
